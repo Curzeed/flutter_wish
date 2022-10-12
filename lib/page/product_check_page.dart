@@ -17,11 +17,8 @@ class ProductCheckPage extends StatelessWidget {
           builder:(_,snapshot){
             if(snapshot.hasData && snapshot.data !=null){
               String body = snapshot.data!.body;
-              final List<dynamic> lsProductsJSON= jsonDecode(body);
-              List<Product> lsProducts = List.empty(growable: true);
-              lsProductsJSON.forEach((mapProduct) =>
-                lsProducts.add(Product.fromJson(mapProduct))
-              );
+              List<Product> lsProducts = (jsonDecode(body) as List)
+              .map((e) => Product.fromJson(e)).toList();
               return Text(" le nom du produit téléchargé est : ${lsProducts[12].title}");
             }
             return const CircularProgressIndicator();
